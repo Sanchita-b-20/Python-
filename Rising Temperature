@@ -1,0 +1,19 @@
+import pandas as pd
+
+def rising_temperature(weather: pd.DataFrame) -> pd.DataFrame:
+    weather['recordDate'] = pd.to_datetime(weather['recordDate'])
+    
+    prev_day = weather.copy()
+    prev_day['recordDate'] = prev_day['recordDate'] + pd.Timedelta(days=1)
+    prev_day = prev_day.rename(columns={'temperature': 'prev_temp'})
+    
+    merged = weather.merge(
+        prev_day[['recordDate', 'prev_temp']],
+        on='recordDate',
+        how='inner'
+    )
+    
+    return merged.loc[
+        merged['temperature'] > merged['prev_temp'],
+        ['id']
+    ]
