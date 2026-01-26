@@ -1,0 +1,8 @@
+import pandas as pd
+
+def combine_two_tables(person: pd.DataFrame, address: pd.DataFrame) -> pd.DataFrame:
+    # Left join to keep all persons
+    merged = person.merge(address, on="personId", how="left")
+    
+    # Return required columns
+    return merged[["firstName", "lastName", "city", "state"]]
