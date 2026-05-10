@@ -1,0 +1,16 @@
+import pandas as pd
+
+def find_employees(employee: pd.DataFrame) -> pd.DataFrame:
+    # Merge employee table with itself
+    merged = employee.merge(
+        employee,
+        left_on="managerId",
+        right_on="id",
+        suffixes=("_emp", "_mgr")
+    )
+
+    # Filter employees earning more than their managers
+    result = merged[merged["salary_emp"] > merged["salary_mgr"]]
+
+    # Return required column
+    return result[["name_emp"]].rename(columns={"name_emp": "Employee"})
