@@ -1,0 +1,19 @@
+class Solution:
+    def strStr(self, haystack, needle):
+        
+        # Loop through haystack
+        for i in range(len(haystack) - len(needle) + 1):
+            
+            # Check substring
+            if haystack[i:i + len(needle)] == needle:
+                return i
+        
+        # If not found
+        return -1
+
+
+# Example Usage
+sol = Solution()
+
+print(sol.strStr("sadbutsad", "sad"))      # Output: 0
+print(sol.strStr("leetcode", "leeto"))    # Output: -1
